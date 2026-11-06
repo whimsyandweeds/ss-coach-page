@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="color-scheme" content="light dark" />
+<meta name="color-scheme" content="light" />
 <title>Sophie + Sage — For Coaches</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,26 +29,6 @@
     --shadow:0 24px 60px rgba(70,58,48,.10);
     --serif:"Fraunces","Iowan Old Style",Palatino,serif;
     --sans:"Outfit","Avenir Next",sans-serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --ink:#f0ece3;
-      --ink-soft:#b9b2a6;
-      --body:#ddd7cc;
-      --muted:#9a937f;
-      --purple:#b3a6cf;
-      --purple-deep:#cfc3e6;
-      --sage-head:#a9bc94;
-      --sage-deep:#a9bc94;
-      --sage-tint:#2c3324;
-      --lilac:#38304a;
-      --lilac-soft:#322a44;
-      --lilac-line:#5d5178;
-      --paper:#171713;
-      --card:#201f1b;
-      --line:rgba(240,236,227,.14);
-      --shadow:0 24px 60px rgba(0,0,0,.45);
-    }
   }
   * {box-sizing:border-box}
   html {scroll-behavior:smooth}
@@ -110,9 +90,6 @@
     transition:background .2s,color .2s;
   }
   .switch button[aria-pressed="true"] {background:var(--sage-deep);color:#f7f4ee}
-  @media (prefers-color-scheme: dark) {
-    .switch button[aria-pressed="true"] {color:#171713}
-  }
   .switch button:focus-visible {outline:2px solid var(--purple);outline-offset:2px}
   section.block {padding:52px 0 8px}
   .label {
@@ -202,7 +179,6 @@
     background:var(--ink);color:var(--paper);border-radius:28px;padding:44px 38px;
     box-shadow:var(--shadow);
   }
-  @media (prefers-color-scheme: dark) { .punchy-hero {background:#26241f} }
   .punchy-hero .big {
     font-size:clamp(32px,5vw,50px);font-weight:500;line-height:1.08;letter-spacing:-.02em;margin:0 0 18px;max-width:14em;
   }
