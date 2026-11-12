@@ -66,7 +66,7 @@
   }
   .nav {
     position:absolute;
-    bottom:28px;
+    bottom:48px;
     display:flex;
     gap:12px;
     align-items:center;
@@ -96,15 +96,15 @@
   .dots span.on {background:var(--purple)}
   .brand {
     position:absolute;
-    top:22px; left:28px;
+    top:18px; left:20px;
     display:flex; align-items:center; gap:10px;
-    letter-spacing:.16em; font-size:13px; font-weight:600; text-transform:uppercase;
   }
-  .brand .s-badge {
-    width:30px; height:30px; border-radius:50%;
-    background:var(--ink); color:var(--paper);
-    display:grid; place-items:center;
-    font-family:var(--serif); font-size:15px;
+  .brand img {
+    width:42px; height:42px;
+    object-fit:contain;
+  }
+  .brand span {
+    letter-spacing:.16em; font-size:13px; font-weight:600; text-transform:uppercase;
   }
   h1 {
     font-weight:500;
@@ -177,10 +177,9 @@
 </style>
 </head>
 <body>
-<div class="brand"><span class="s-badge">S</span> Sophie + Sage</div>
+<div class="brand"><img src="emblem.png" alt="Sophie + Sage" /><span>Sophie + Sage</span></div>
 
 <div class="deck">
-  <!-- Card 1: Hero -->
   <div class="card active" data-card="0">
     <div class="label">Logistics Exit Concierge</div>
     <h1>She is ready to <span class="under">leave</span>.<br>The logistics are not.</h1>
@@ -188,14 +187,12 @@
     <p class="lede">For coaches whose clients have decided to go. I take the housing, utilities, movers, deposits, and every call she can’t safely make.</p>
   </div>
 
-  <!-- Card 2: Background -->
   <div class="card" data-card="1">
     <div class="label">Why this exists</div>
     <h1 style="font-size:clamp(32px,4vw,48px)">I already knew how to leave.</h1>
     <p class="lede">I’d spent years on the property and accounting side. I knew who to call, what to turn on, and how to move. Most women don’t have that in their pocket. That’s why exits stall after the decision is made. I want to be that person for them.</p>
   </div>
 
-  <!-- Card 3: What I take -->
   <div class="card" data-card="2">
     <div class="label">What I take</div>
     <h1 style="font-size:clamp(32px,4vw,48px)">The whole logistics load.</h1>
@@ -208,7 +205,6 @@
     </div>
   </div>
 
-  <!-- Card 4: The split -->
   <div class="card" data-card="3">
     <div class="label">The split</div>
     <h1 style="font-size:clamp(32px,4vw,48px)">Your zone. My zone.</h1>
@@ -232,7 +228,6 @@
     </div>
   </div>
 
-  <!-- Card 5: Questionnaire -->
   <div class="card" data-card="4">
     <div class="label">A few questions</div>
     <h1 style="font-size:clamp(28px,3.5vw,42px)">Help me build this for the women your clients are.</h1>
@@ -303,7 +298,6 @@ prev.addEventListener('click', () => current > 0 && show(current - 1));
 next.addEventListener('click', () => current < cards.length - 1 && show(current + 1));
 renderDots();
 
-// Chips
 document.querySelectorAll('.chips').forEach(group => {
   const multi = group.dataset.multi === 'true';
   group.querySelectorAll('.chip').forEach(chip => {
