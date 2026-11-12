@@ -58,6 +58,8 @@
     padding:48px 44px;
     display:none;
     animation:slideIn .35s ease;
+    max-height:calc(100vh - 140px);
+    overflow-y:auto;
   }
   .card.active {display:block}
   @keyframes slideIn {
@@ -168,6 +170,20 @@
     font-weight:500;
   }
   .chip.selected {background:var(--purple); color:#fff; border-color:var(--purple)}
+  .branch {display:none; margin-top:8px}
+  .branch.show {display:block}
+  textarea {
+    width:100%;
+    border:1.5px solid var(--line);
+    background:var(--paper);
+    border-radius:14px;
+    padding:12px 14px;
+    font-family:inherit;
+    font-size:14.5px;
+    color:var(--body);
+    resize:vertical;
+    min-height:70px;
+  }
   .result {display:none; margin-top:18px; padding:16px; background:var(--sage-tint); border-radius:14px}
   .result.show {display:block}
   @media (max-width: 700px) {
@@ -189,8 +205,9 @@
 
   <div class="card" data-card="1">
     <div class="label">Why this exists</div>
-    <h1 style="font-size:clamp(32px,4vw,48px)">I already knew how to leave.</h1>
-    <p class="lede">I’d spent years on the property and accounting side. I knew who to call, what to turn on, and how to move. Most women don’t have that in their pocket. That’s why exits stall after the decision is made. I want to be that person for them.</p>
+    <h1 style="font-size:clamp(32px,4vw,48px)">I was terrorized for months by my abuser.</h1>
+    <p class="lede">He kept breaking into the house I’d owned for years, and the law protected him while he did it.</p>
+    <p class="lede" style="margin-top:14px">I’m not here to coach her. I’m here so the logistics don’t stall the exit you already helped her decide on.</p>
   </div>
 
   <div class="card" data-card="2">
@@ -231,9 +248,10 @@
   <div class="card" data-card="4">
     <div class="label">A few questions</div>
     <h1 style="font-size:clamp(28px,3.5vw,42px)">Help me build this for the women your clients are.</h1>
+    <p class="lede" style="margin-bottom:20px">Please take a minute with these questions. I’m figuring out the best way to serve the women your clients actually are.</p>
     <form class="quiz" id="quiz">
       <div class="q">
-        <h4>How often do logistics stall an exit after the decision is made?</h4>
+        <h4>How often do logistics stall the exit?</h4>
         <div class="chips" data-name="stall">
           <button type="button" class="chip" data-value="rarely">Rarely</button>
           <button type="button" class="chip" data-value="sometimes">Sometimes</button>
@@ -242,24 +260,62 @@
         </div>
       </div>
       <div class="q">
-        <h4>Which pieces create the most friction?</h4>
+        <h4>Biggest friction?</h4>
         <p class="hint">Select all that apply.</p>
         <div class="chips" data-name="friction" data-multi="true">
           <button type="button" class="chip" data-value="housing">Housing</button>
           <button type="button" class="chip" data-value="utilities">Utilities</button>
+          <button type="button" class="chip" data-value="deposits">Deposits</button>
           <button type="button" class="chip" data-value="movers">Movers</button>
-          <button type="button" class="chip" data-value="budget">Budget</button>
           <button type="button" class="chip" data-value="calls">The calls</button>
+          <button type="button" class="chip" data-value="other">Other</button>
         </div>
       </div>
       <div class="q">
-        <h4>Would a behind-the-scenes logistics partner be useful?</h4>
-        <div class="chips" data-name="useful">
-          <button type="button" class="chip" data-value="yes">Yes, regularly</button>
-          <button type="button" class="chip" data-value="sometimes">Sometimes</button>
-          <button type="button" class="chip" data-value="maybe">Maybe</button>
+        <h4>What else do they need help with?</h4>
+        <textarea name="logistics-other" placeholder="Optional"></textarea>
+      </div>
+
+      <div class="q">
+        <h4>Go further?</h4>
+        <div class="chips" data-name="branch" data-multi="true">
+          <button type="button" class="chip" data-value="systems" data-branch="systems">Systems protecting the abuser</button>
+          <button type="button" class="chip" data-value="legal" data-branch="legal">Legal access to the home</button>
+          <button type="button" class="chip" data-value="just">Just logistics</button>
         </div>
       </div>
+
+      <div class="branch" id="systems-branch">
+        <div class="q">
+          <h4>What usually happened?</h4>
+          <p class="hint">Select all that apply.</p>
+          <div class="chips" data-name="systems" data-multi="true">
+            <button type="button" class="chip" data-value="flipped">Story flipped</button>
+            <button type="button" class="chip" data-value="nothing">Told nothing could be done</button>
+            <button type="button" class="chip" data-value="stopped">She stopped calling</button>
+            <button type="button" class="chip" data-value="helped">It helped</button>
+            <button type="button" class="chip" data-value="varies">Varies</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch" id="legal-branch">
+        <div class="q">
+          <h4>Had to leave a home she owned or was on the lease for?</h4>
+          <div class="chips" data-name="legal">
+            <button type="button" class="chip" data-value="more">More than once</button>
+            <button type="button" class="chip" data-value="once">Once</button>
+            <button type="button" class="chip" data-value="no">Not that I know of</button>
+            <button type="button" class="chip" data-value="unsure">Not sure</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="q">
+        <h4>Anything else you want me to know?</h4>
+        <textarea name="anything-else" placeholder="Optional. Story, pattern, or email if you want to talk."></textarea>
+      </div>
+
       <div class="result" id="result">
         <strong>Thank you.</strong>
         <p style="margin:8px 0 0; font-size:14.5px">Your answers stay on this page. Copy them if you want to send them.</p>
@@ -304,21 +360,45 @@ document.querySelectorAll('.chips').forEach(group => {
     chip.addEventListener('click', () => {
       if (!multi) group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
       chip.classList.toggle('selected');
+      if (group.dataset.name === 'branch') updateBranches();
     });
   });
 });
 
+function updateBranches() {
+  const selected = [...document.querySelectorAll('[data-name="branch"] .chip.selected')].map(c => c.dataset.branch).filter(Boolean);
+  document.getElementById('systems-branch').classList.toggle('show', selected.includes('systems'));
+  document.getElementById('legal-branch').classList.toggle('show', selected.includes('legal'));
+}
+
 document.getElementById('quiz').addEventListener('submit', e => e.preventDefault());
-document.getElementById('copy-btn')?.addEventListener('click', () => {
+
+const result = document.getElementById('result');
+const copyBtn = document.getElementById('copy-btn');
+
+function checkDone() {
+  // simple: show result if any answer exists
+  const hasAnswer = document.querySelector('.chip.selected') || document.querySelector('textarea').value.trim();
+  if (hasAnswer) result.classList.add('show');
+}
+document.querySelectorAll('.chip, textarea').forEach(el => {
+  el.addEventListener('click', checkDone);
+  el.addEventListener('input', checkDone);
+});
+
+copyBtn?.addEventListener('click', () => {
   const answers = {};
   document.querySelectorAll('.chips').forEach(group => {
     const name = group.dataset.name;
     const selected = [...group.querySelectorAll('.chip.selected')].map(c => c.dataset.value);
     if (selected.length) answers[name] = selected;
   });
+  document.querySelectorAll('textarea').forEach(t => {
+    if (t.value.trim()) answers[t.name] = t.value.trim();
+  });
   const text = Object.entries(answers).map(([k,v]) => `${k}: ${Array.isArray(v)?v.join(', '):v}`).join('\n');
   navigator.clipboard.writeText('Sophie + Sage coach feedback:\n' + text);
-  document.getElementById('copy-btn').textContent = 'Copied';
+  copyBtn.textContent = 'Copied';
 });
 </script>
 </body>
